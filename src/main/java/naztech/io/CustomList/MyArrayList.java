@@ -26,7 +26,7 @@ public class MyArrayList<E> implements MyList<E> {
 	}
 
 	@Override
-	public void add(int index, E element) {
+	public boolean add(int index, E element) {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
 		} else if (index < size) {
@@ -37,15 +37,15 @@ public class MyArrayList<E> implements MyList<E> {
 		} else {
 			elements[index] = element;
 		}
+		return true;
 
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean addAll(MyList<? extends E> list) {
 		if (list == null)
 			throw new NullPointerException();
-		MyArrayList eList = (MyArrayList) list;
+		MyArrayList<? extends E> eList = (MyArrayList<? extends E>) list;
 		if ((this.size + eList.size()) > elements.length) {
 			ensureCapacity(size + eList.size());
 		}
@@ -59,9 +59,10 @@ public class MyArrayList<E> implements MyList<E> {
 	}
 
 	@Override
-	public void clear() {
+	public boolean clear() {
 		this.size = 0;
 		elements = new Object[DEFAULT_CAPACITY];
+		return true;
 	}
 
 	@Override
@@ -105,14 +106,16 @@ public class MyArrayList<E> implements MyList<E> {
 		return true;
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean removeAll(MyArrayList<?> eList) {
-
+	public boolean removeAll(MyList<? extends E> list) {
+		if(list==null) throw new NullPointerException();
+		MyArrayList <? extends E>eList=(MyArrayList<? extends E>) list;
 		for (int i = 0; i < eList.size(); i++) {
 			this.remove((E) eList.elements[i]);
 		}
-		return false;
+		return true;
 	}
 
 	@Override

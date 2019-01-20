@@ -44,13 +44,6 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-		<!-- MSSQL Connection -->
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>7.0.0.jre8</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
