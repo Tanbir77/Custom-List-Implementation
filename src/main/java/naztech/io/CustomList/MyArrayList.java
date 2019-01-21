@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class MyArrayList<E> implements MyList<E> {
 
 	private int size = 0;
-	private static final int DEFAULT_CAPACITY = 10;
+	private static final int DEFAULT_CAPACITY=0;
 	private Object elements[];
 
 	public MyArrayList() {
@@ -14,7 +14,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 	private void ensureSize() {
 		if (size == elements.length) {
-			ensureCapacity(elements.length * 2);
+			ensureCapacity(elements.length+1);
 		}
 	}
 
@@ -30,9 +30,9 @@ public class MyArrayList<E> implements MyList<E> {
 		if (index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
 		} else if (index < size) {
+			ensureSize();
 			Object o = elements[index];
 			elements[index] = element;
-			ensureSize();
 			elements[size++] = o;
 		} else {
 			elements[index] = element;
@@ -90,19 +90,21 @@ public class MyArrayList<E> implements MyList<E> {
 			throw new IndexOutOfBoundsException();
 		Object ob = elements[index];
 		elements[index] = elements[--size];
+		ensureCapacity(elements.length-1);
 
 		return (E) ob;
 	}
 
 	@Override
-	public boolean remove(E e) {
+	public boolean remove(Object o) {
 		int index;
 		try {
-			index = indexOf(e);
+			index = indexOf(o);
 		} catch (IllegalArgumentException ie) {
 			throw ie;
 		}
 		elements[index] = elements[--size];
+		ensureCapacity(elements.length-1);
 		return true;
 	}
 
@@ -151,5 +153,12 @@ public class MyArrayList<E> implements MyList<E> {
 	private void ensureCapacity(int minCapacity) {
 		elements = Arrays.copyOf(elements, minCapacity);
 	}
+
+	@Override
+	public String toString() {
+		return  Arrays.toString(elements);
+	}
+	
+	
 
 }

@@ -8,7 +8,7 @@ public interface MyList <E>{
 	boolean contains(E e);
 	E get(int index);
 	E remove(int index);
-	boolean remove(E e);
+	boolean remove(Object o);
 	boolean	removeAll(MyList<? extends E> eList);
 	E set(int index, E element);
 	int size();
