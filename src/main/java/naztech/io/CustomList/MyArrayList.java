@@ -148,7 +148,7 @@ public class MyArrayList<E> implements MyList<E> {
 		throw new IllegalArgumentException();
 	}
 
-	void ensureCapacity(int minCapacity) {
+	private void ensureCapacity(int minCapacity) {
 		elements = Arrays.copyOf(elements, minCapacity);
 	}
 

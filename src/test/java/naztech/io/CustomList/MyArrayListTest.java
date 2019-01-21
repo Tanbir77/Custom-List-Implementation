@@ -1,8 +1,11 @@
 package naztech.io.CustomList;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -16,6 +19,7 @@ public class MyArrayListTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+
 		sList = new MyArrayList<>();
 		nList = new MyArrayList<>();
 		iList = new MyArrayList<>();
@@ -49,6 +53,40 @@ public class MyArrayListTest {
 		assertTrue(nList.add(4, 0.12));
 		assertTrue(iList.add(00));
 
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void NullPointerExceptionTest() {
+		MyList<String> str = null;
+		sList.addAll(str);
+		sList.removeAll(str);
+
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void IndexOutOfBoundsExceptionTest() {
+		sList.add(15, "Fifteen");
+		sList.get(15);
+		sList.set(15,"FIfteen");
+		sList.remove(15);
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void IllegalArgumentExceptionTest() {
+		sList.remove("Fifteen");
+		sList.indexOf("three");
+
+	}
+	
+	@Test
+	public void testExceptionMessage() {
+	    try {
+	    	sList.add(15,"Fifteen");
+	        fail("Expected an IndexOutOfBoundsException to be thrown");
+	    } catch (IndexOutOfBoundsException anIndexOutOfBoundsException) {
+	        assertThat(anIndexOutOfBoundsException, is(anIndexOutOfBoundsException));
+	    }
 	}
 
 	@Test
@@ -85,7 +123,7 @@ public class MyArrayListTest {
 
 	@Test
 	public void setTest() {
-		MyArrayList<Number> list=new MyArrayList<>();
+		MyArrayList<Number> list = new MyArrayList<>();
 		list.add(1);
 		list.add(2);
 		assertEquals(2, list.set(1, 3));
@@ -95,7 +133,7 @@ public class MyArrayListTest {
 
 	@Test
 	public void sizeTest() {
-		MyArrayList<Integer> list=new MyArrayList<>();
+		MyArrayList<Integer> list = new MyArrayList<>();
 		list.add(1);
 		list.add(2);
 		Integer i = 2;
@@ -114,14 +152,13 @@ public class MyArrayListTest {
 		Integer index = 0;
 		assertTrue(index.equals(sList.indexOf("One")));
 	}
-	
 
 	@Test
 	public void clearTest() {
-		MyArrayList<Integer> list=new MyArrayList<>();
+		MyArrayList<Integer> list = new MyArrayList<>();
 		list.add(1);
 		list.add(2);
 		assertTrue(list.clear());
 	}
-	
+
 }
